@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ecece7"/><stop offset="1" stop-color="#dfe2e0"/></linearGradient>
+  <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102f4c"/><stop offset="1" stop-color="#031322"/></linearGradient>
+  <linearGradient id="cloth" x1="0" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#23486a"/><stop offset="1" stop-color="#07192a"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7baa3"/><stop offset="1" stop-color="#9b7f6d"/></linearGradient>
+  <filter id="shadow"><feGaussianBlur stdDeviation="24"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+
+<rect width="1200" height="900" fill="#e7e8e4"/>
+<path d="M410 95 L790 95 L925 850 L650 850 L600 500 L545 850 L270 850Z" fill="#152e47"/>
+<path d="M470 150 L730 150" stroke="#93a6b5" stroke-width="5"/><path d="M600 165 L600 505" stroke="#9db0bc" stroke-width="3"/>
+
+</svg>

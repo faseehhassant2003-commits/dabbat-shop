@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ecece7"/><stop offset="1" stop-color="#dfe2e0"/></linearGradient>
+  <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102f4c"/><stop offset="1" stop-color="#031322"/></linearGradient>
+  <linearGradient id="cloth" x1="0" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#23486a"/><stop offset="1" stop-color="#07192a"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7baa3"/><stop offset="1" stop-color="#9b7f6d"/></linearGradient>
+  <filter id="shadow"><feGaussianBlur stdDeviation="24"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+
+<rect width="1200" height="900" fill="#e9ebe7"/>
+<polygon points="0,0 650,0 450,900 0,900" fill="#f8f8f4"/>
+<circle cx="760" cy="220" r="80" fill="url(#skin)"/>
+<path d="M690 210 Q720 100 810 130 Q850 155 832 226 Q760 164 690 210Z" fill="#151d25"/>
+<path d="M660 285 Q770 245 870 290 L945 670 L610 670Z" fill="#102f4c"/>
+<path d="M666 680 L790 680 L820 900 L560 900Z" fill="#d9d6ce"/>
+<path d="M790 680 L900 675 L1090 900 L820 900Z" fill="#e7e4dc"/>
+<rect x="0" y="0" width="1200" height="900" fill="none" stroke="#aab9c4" stroke-width="2"/>
+
+</svg>

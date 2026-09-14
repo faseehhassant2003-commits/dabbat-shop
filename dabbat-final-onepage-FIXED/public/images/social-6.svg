@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ecece7"/><stop offset="1" stop-color="#dfe2e0"/></linearGradient>
+  <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102f4c"/><stop offset="1" stop-color="#031322"/></linearGradient>
+  <linearGradient id="cloth" x1="0" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#23486a"/><stop offset="1" stop-color="#07192a"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d7baa3"/><stop offset="1" stop-color="#9b7f6d"/></linearGradient>
+  <filter id="shadow"><feGaussianBlur stdDeviation="24"/></filter>
+</defs>
+<rect width="1200" height="900" fill="url(#bg)"/>
+
+<rect width="1200" height="900" fill="#e6e8e4"/>
+<path d="M0 130 C210 30, 320 230, 520 120 S890 35,1200 180 L1200 900 L0 900Z" fill="#b7c5d0"/>
+<path d="M0 280 C230 150, 330 360, 560 245 S930 150,1200 300" fill="none" stroke="#6e8599" stroke-width="90" opacity=".24"/>
+<path d="M0 520 C220 400, 360 620, 610 500 S940 420,1200 560" fill="none" stroke="#8ba0b2" stroke-width="120" opacity=".13"/>
+<path d="M170 610 L1030 610" stroke="#e8efe9" stroke-width="2" opacity=".22"/>
+
+</svg>
