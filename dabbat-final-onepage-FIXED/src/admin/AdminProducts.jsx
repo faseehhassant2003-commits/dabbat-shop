@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Plus, Search, ArrowUpRight } from "lucide-react";
+import { getProducts } from "../lib/productStore";
 
-const products = [
+const seedProducts = [
   ["Classic Navy Shirt", "Shirts", "INR 4,500", "42", "In stock"],
   ["Tailored Trousers", "Trousers", "INR 6,200", "28", "In stock"],
   ["Linen Overshirt", "Shirts", "INR 5,800", "12", "Low stock"],
@@ -13,6 +14,18 @@ const products = [
 
 export default function AdminProducts() {
   const navigate = useNavigate();
+  const products = [
+    ...seedProducts,
+    ...getProducts()
+      .filter((product) => product.id > 5)
+      .map((product) => [
+        product.name,
+        product.category,
+        `INR ${product.price.toLocaleString("en-IN")}`,
+        product.inStock ? "In stock" : "0",
+        product.inStock ? "In stock" : "Out of stock",
+      ]),
+  ];
 
   return (
     <div>

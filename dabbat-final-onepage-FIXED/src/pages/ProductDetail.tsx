@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { mockProducts } from "../lib/mockData";
+import { getProducts } from "../lib/productStore";
 import { useCart } from "../context/CartContext";
 
 export default function ProductDetail() {
   const { slug } = useParams();
-  const product = mockProducts.find((p) => p.slug === slug);
+  const product = getProducts().find((p) => p.slug === slug);
   const { addToCart } = useCart();
+  const availableSizes = product?.sizes.length ? product.sizes : ["One size"];
+  const availableColors = product?.colors.length ? product.colors : ["Default"];
 
-  const [size, setSize] = useState(product?.sizes[0] ?? "");
-  const [color, setColor] = useState(product?.colors[0] ?? "");
+  const [size, setSize] = useState(availableSizes[0]);
+  const [color, setColor] = useState(availableColors[0]);
   const [added, setAdded] = useState(false);
 
   if (!product) {
@@ -44,15 +46,13 @@ export default function ProductDetail() {
         <div className="mb-6">
           <p className="tag mb-2">SIZE</p>
           <div className="flex gap-2 flex-wrap">
-            {product.sizes.map((s) => (
+            {availableSizes.map((s) => (
               <button
                 key={s}
+                type="button"
+                aria-pressed={size === s}
                 onClick={() => setSize(s)}
-                className={`tag px-4 py-2 border transition-colors ${
-                  size === s
-                    ? "border-[var(--accent)] text-[var(--fg-max)]"
-                    : "border-[var(--line-soft)] text-[var(--t4)]"
-                }`}
+                className={`product-option tag px-4 py-2 border transition-colors ${size === s ? "selected" : ""}`}
               >
                 {s}
               </button>
@@ -63,15 +63,13 @@ export default function ProductDetail() {
         <div className="mb-8">
           <p className="tag mb-2">COLOR</p>
           <div className="flex gap-2 flex-wrap">
-            {product.colors.map((c) => (
+            {availableColors.map((c) => (
               <button
                 key={c}
+                type="button"
+                aria-pressed={color === c}
                 onClick={() => setColor(c)}
-                className={`tag px-4 py-2 border transition-colors ${
-                  color === c
-                    ? "border-[var(--accent)] text-[var(--fg-max)]"
-                    : "border-[var(--line-soft)] text-[var(--t4)]"
-                }`}
+                className={`product-option tag px-4 py-2 border transition-colors ${color === c ? "selected" : ""}`}
               >
                 {c.toUpperCase()}
               </button>

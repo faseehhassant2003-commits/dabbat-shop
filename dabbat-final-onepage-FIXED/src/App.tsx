@@ -20,6 +20,7 @@ import AdminProductNew from "./admin/AdminProductNew";
 import AdminOrderDetail from "./admin/AdminOrderDetail";
 import AdminCustomerDetail from "./admin/AdminCustomerDetail";
 import AdminProductDetail from "./admin/AdminProductDetail";
+import AdminSiteImages from "./admin/AdminSiteImages";
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
           <Route path="customers" element={<AdminCustomers />} />
           <Route path="customers/:customerSlug" element={<AdminCustomerDetail />} />
           <Route path="inventory" element={<AdminInventory />} />
+          <Route path="site-images" element={<AdminSiteImages />} />
         </Route>
       </Routes>
     </div>

@@ -6,6 +6,7 @@ import {
   ShoppingBag,
   Users,
   Boxes,
+  Image,
   LogOut,
   Menu,
   X
@@ -21,7 +22,8 @@ export default function AdminLayout() {
     { to: "/admin/products", label: "Products", icon: Package },
     { to: "/admin/orders", label: "Orders", icon: ShoppingBag },
     { to: "/admin/customers", label: "Customers", icon: Users },
-    { to: "/admin/inventory", label: "Inventory", icon: Boxes }
+    { to: "/admin/inventory", label: "Inventory", icon: Boxes },
+    { to: "/admin/site-images", label: "Page Images", icon: Image }
   ];
 
   return (

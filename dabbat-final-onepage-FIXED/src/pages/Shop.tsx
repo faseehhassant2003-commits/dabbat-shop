@@ -1,15 +1,25 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import { mockProducts } from "../lib/mockData";
+import { getProducts } from "../lib/productStore";
 
 export default function Shop() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get("category") || "All";
   const search = searchParams.get("search")?.toLowerCase() || "";
   const sort = searchParams.get("sort");
-  const categories = useMemo(() => ["All", ...Array.from(new Set(mockProducts.map((p)=>p.category)))], []);
-  const [products] = useState(mockProducts);
+  const [products, setProducts] = useState(getProducts);
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    const refreshProducts = () => setProducts(getProducts());
+    window.addEventListener("storage", refreshProducts);
+    window.addEventListener("dabbat-products-updated", refreshProducts);
+    return () => {
+      window.removeEventListener("storage", refreshProducts);
+      window.removeEventListener("dabbat-products-updated", refreshProducts);
+    };
+  }, []);
+  const categories = useMemo(() => ["All", ...Array.from(new Set(products.map((p) => p.category)))], [products]);
   const filtered = products.filter(p =>
     (activeCategory === "All" || p.category === activeCategory) &&
     (!search || `${p.name} ${p.category}`.toLowerCase().includes(search))

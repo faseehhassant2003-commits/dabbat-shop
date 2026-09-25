@@ -1,12 +1,36 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getProducts, saveProduct } from "../lib/productStore";
 
 export default function AdminProductNew() {
   const navigate = useNavigate();
   const [imagePreview, setImagePreview] = React.useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const imageFile = form.get("imageFile");
+    const imageUrl = form.get("image");
+    const image = imageFile instanceof File && imageFile.size > 0
+      ? await readFileAsDataUrl(imageFile)
+      : String(imageUrl || "/images/product-white.svg");
+    const name = String(form.get("name"));
+    const category = String(form.get("category"));
+    const slug = name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    const products = getProducts();
+
+    saveProduct({
+      id: Math.max(0, ...products.map((product) => product.id)) + 1,
+      name,
+      slug: `${slug}-${Date.now()}`,
+      price: Number(form.get("price")),
+      category,
+      sizes: String(form.get("sizes")).split(",").map((size) => size.trim()).filter(Boolean),
+      colors: String(form.get("colors")).split(",").map((color) => color.trim()).filter(Boolean),
+      images: [image],
+      description: String(form.get("description")),
+      inStock: Number(form.get("stock")) > 0,
+    });
     navigate("/admin/products");
   };
 
@@ -52,6 +76,10 @@ export default function AdminProductNew() {
           <span>Available sizes</span>
           <input name="sizes" placeholder="S, M, L, XL" required />
         </label>
+        <label>
+          <span>Available colors</span>
+          <input name="colors" placeholder="Navy, White, Stone" required />
+        </label>
         <label className="admin-form-wide">
           <span>Product image URL</span>
           <input name="image" type="url" placeholder="https://..." />
@@ -89,4 +117,13 @@ export default function AdminProductNew() {
       </form>
     </div>
   );
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result));
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }

@@ -1,8 +1,9 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import ProductCard from "../components/ProductCard";
-import { mockProducts } from "../lib/mockData";
+import { getProducts } from "../lib/productStore";
+import { getSiteImages } from "../lib/siteImageStore";
 
 const reveal: Variants = {
   hidden: { opacity: 0, y: 36 },
@@ -14,17 +15,24 @@ const reveal: Variants = {
 };
 
 export default function Home() {
-  const [category, setCategory] = useState("All");
+  const [products, setProducts] = useState(getProducts);
+  const [siteImages, setSiteImages] = useState(getSiteImages);
+  const featuredProducts = products.slice(0, 5);
 
-  const products = useMemo(
-    () =>
-      category === "All"
-        ? mockProducts
-        : mockProducts.filter((product) => product.category === category),
-    [category]
-  );
-
-  const categories = ["All", "Shirts", "Trousers"];
+  useEffect(() => {
+    const refreshProducts = () => setProducts(getProducts());
+    const refreshSiteImages = () => setSiteImages(getSiteImages());
+    window.addEventListener("storage", refreshProducts);
+    window.addEventListener("dabbat-products-updated", refreshProducts);
+    window.addEventListener("storage", refreshSiteImages);
+    window.addEventListener("dabbat-site-images-updated", refreshSiteImages);
+    return () => {
+      window.removeEventListener("storage", refreshProducts);
+      window.removeEventListener("dabbat-products-updated", refreshProducts);
+      window.removeEventListener("storage", refreshSiteImages);
+      window.removeEventListener("dabbat-site-images-updated", refreshSiteImages);
+    };
+  }, []);
 
   return (
     <div className="home-page">
@@ -32,7 +40,7 @@ export default function Home() {
       <section className="hero-fullbleed" aria-label="Dabbat introduction">
         <img
           className="hero-fullbleed-image"
-          src="/images/hero-editorial.svg"
+          src={siteImages.hero}
           alt="Dabbat menswear editorial"
         />
 
@@ -156,52 +164,35 @@ export default function Home() {
         </div>
 
         <div className="collection-toolbar">
-          <div className="collection-filters">
-            {categories.map((item) => (
-              <button
-                key={item}
-                type="button"
-                className={category === item ? "active" : ""}
-                onClick={() => setCategory(item)}
-              >
-                {item.toUpperCase()}
-              </button>
-            ))}
-          </div>
+          <p className="collection-new-label">NEW COLLECTIONS</p>
 
-          <button
-            type="button"
+          <Link
+            to="/shop"
             className="collection-view-all"
-            onClick={() =>
-              document
-                .getElementById("collection")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
           >
             VIEW ALL <span>→</span>
-          </button>
+          </Link>
         </div>
 
-        <motion.div
-          className="home-product-grid"
-          layout
-        >
-          {products.map((product, index) => (
-            <motion.div
-              key={product.id}
-              layout
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.12 }}
-              transition={{
-                duration: 0.6,
-                delay: Math.min(index * 0.08, 0.32),
-              }}
-            >
-              <ProductCard product={product} />
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="home-product-marquee">
+          <div className="home-product-track">
+            {[0, 1].map((set) => (
+              <div className="home-product-set" key={set}>
+                {featuredProducts.map((product, index) => (
+                  <motion.div
+                    key={`${set}-${product.id}`}
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.12 }}
+                    transition={{ duration: 0.6, delay: Math.min(index * 0.08, 0.32) }}
+                  >
+                    <ProductCard product={product} />
+                  </motion.div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* EDITORIAL */}
@@ -245,7 +236,7 @@ export default function Home() {
           transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
         >
           <img
-            src="/images/ChatGPT%20Image%20Sep%2013,%202026,%2012_35_46%20AM.png"
+            src={siteImages.editorial}
             alt="Dabbat refined essentials editorial"
           />
           <div className="editorial-image-label">
@@ -263,7 +254,7 @@ export default function Home() {
           whileHover={{ y: -4 }}
           transition={{ duration: 0.3 }}
         >
-          <img src="/images/shirt_banner%20(2).svg" alt="Dabbat shirts" />
+          <img src={siteImages.shirts} alt="Dabbat shirts" />
           <div className="category-fade" />
           <div className="category-copy">
             <p className="eyebrow">01 / SHIRTS</p>
@@ -279,7 +270,7 @@ export default function Home() {
           whileHover={{ y: -4 }}
           transition={{ duration: 0.3 }}
         >
-          <img src="/images/trousers_banner.svg" alt="Dabbat trousers" />
+          <img src={siteImages.trousers} alt="Dabbat trousers" />
           <div className="category-fade" />
           <div className="category-copy">
             <p className="eyebrow">02 / TROUSERS</p>

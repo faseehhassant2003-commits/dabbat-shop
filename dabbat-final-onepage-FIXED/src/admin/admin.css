@@ -68,6 +68,18 @@
 .admin-detail-link { display: inline-flex; gap: 12px; margin-top: 17px; color: var(--admin-accent); font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .12em; text-decoration: none; text-transform: uppercase; }
 .admin-detail-link:hover { color: var(--admin-dark); }
 .admin-detail-products { margin-bottom: 18px; }
+.admin-image-slots { display: grid; gap: 18px; max-width: 980px; }
+.admin-image-slot { display: grid; grid-template-columns: 240px 1fr; gap: 28px; padding: 22px; }
+.admin-image-slot-preview { aspect-ratio: 4 / 3; overflow: hidden; background: var(--admin-soft); border: 1px solid var(--admin-border); }
+.admin-image-slot-preview img { width: 100%; height: 100%; object-fit: cover; }
+.admin-image-slot-fields { display: grid; align-content: center; gap: 10px; }
+.admin-image-slot-fields h2 { margin: 0; color: var(--admin-dark); font-size: 22px; letter-spacing: -.04em; }
+.admin-image-slot-fields p:not(.admin-eyebrow) { margin: 0 0 8px; color: var(--admin-muted); font-size: 12px; }
+.admin-image-slot-fields label { display: grid; gap: 7px; margin-top: 4px; }
+.admin-image-slot-fields label span { color: var(--admin-muted); font-family: "DM Mono", monospace; font-size: 8px; letter-spacing: .12em; text-transform: uppercase; }
+.admin-image-slot-fields input[type="url"], .admin-image-slot-fields input[type="file"] { width: 100%; padding: 11px 12px; border: 1px solid var(--admin-border); background: var(--admin-bg); color: var(--admin-dark); font: inherit; font-size: 11px; }
+.admin-image-slot-fields input[type="file"] { padding: 9px 12px; }
+.admin-image-actions { max-width: 980px; }
 .admin-product-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 760px; padding: 28px; }
 .admin-product-form label { display: grid; gap: 9px; }
 .admin-product-form label span { color: var(--admin-muted); font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; }
@@ -147,4 +159,6 @@
   .admin-form-actions { align-items: stretch; flex-direction: column-reverse; }
   .admin-detail-grid { grid-template-columns: 1fr; }
   .admin-detail-card { padding: 20px; }
+  .admin-image-slot { grid-template-columns: 1fr; }
+  .admin-image-slot-preview { max-width: 360px; }
 }
